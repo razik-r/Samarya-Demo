@@ -8,6 +8,7 @@ import scene2 from './assets/scene2.mp4';
 import scene3 from './assets/scene3.mp4';
 import scene2new from './assets/scene2new.mp4';
 import vdbg1 from './assets/vdbg1.mp4'
+import SamaryaHeader from './components/SamaryaHeader';
 
 // ─── DESIGN TOKENS ────────────────────────────────────────────────
 const theme = {
@@ -22,7 +23,7 @@ const theme = {
 };
 
 // ─── CONTENT — edit freely ─────────────────────────────────────────
-const content = {
+export const content = {
   // eyebrow:     "Chikkamagaluru • India",
   brandLabel:  "Samarya",
   headline:    ["Where Coffee Blossoms", "Meet the "],
@@ -34,7 +35,7 @@ const content = {
   logo:        "https://samarya.online/wp-content/uploads/2023/12/Samarya-Official-White-Website-1-scaled.png",
   // video:       "https://res.cloudinary.com/dywtcb29v/video/upload/Firefly_slight_background_movement_soft_natural_lighting_gentle_motion_smooth_and_realistic_cwiaxx.mp4",
   // fallback:    "https://samarya.online/wp-content/uploads/2026/02/IMG_9604-Edit.jpg",
-  navLinks:    ["Rooms", "Experiences", "About", "Gallery", "Contact"],
+  navLinks:    ["Home", "Rooms", "Experiences", "About", "Contact"],
   icons: [
     { emoji: "∞", label: "Infinity Pool" },
     { emoji: "☕", label: "Estate Coffee" },
@@ -71,7 +72,8 @@ const styles = `
     width: 100%; height: 100%;
     object-fit: cover; object-position: center;
     animation: s-zoom 18s ease-in-out infinite alternate;
-    background: rgba(255, 255, 255, 0.2);    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.2);
+    filter: brightness(1.15) contrast(1.14) saturate(1.05)  ;
   }
   .s-fallback {
     position: absolute; inset: 0; z-index: -1;
@@ -82,30 +84,43 @@ const styles = `
   /* Overlay layers */
   .s-ov-base {
     position: absolute; inset: 0; z-index: 1;
-    
-     
-       background: linear-gradient(to right, rgba(19, 10, 1, 0.62) 0%, rgba(37, 18, 4, 0) 50%, rgba(255, 255, 255, 0) 100%);
-
-   filter: brightness(4) contrast(125%) ;
+    pointer-events: none;
+    background:
+      radial-gradient(ellipse at 60% 35%, transparent 18%, rgba(8, 6, 4, 0.12) 54%, rgba(6, 5, 4, 0.5) 100%),
+      linear-gradient(180deg, rgba(7, 6, 5, 0.48) 0%, rgba(7, 6, 5, 0.08) 30%, rgba(7, 5, 3, 0.38) 100%);
   }
   .s-ov-golden {
     position: absolute; inset: 0; z-index: 2;
-    background: rgba(124, 117, 108, 0.28);
-    mix-blend-mode: multiply;
+    pointer-events: none;
+    background:
+      linear-gradient(112deg, rgba(82, 46, 17, 0.25) 0%, rgba(94, 55, 22, 0.12) 42%, transparent 70%),
+      radial-gradient(circle at 75% 30%, rgba(212, 180, 131, 0.12), transparent 42%);
+    mix-blend-mode: soft-light;
   }
   .s-ov-left {
     position: absolute; inset: 0; z-index: 3;
-    background: linear-gradient(to right, rgba(0, 0, 0, 0.62) 0%, rgba(14, 13, 13, 0.3) 50%, rgba(255, 255, 255, 0) 100%);
+    pointer-events: none;
+    background: linear-gradient(90deg,
+      rgba(8, 7, 6, 0.8) 0%,
+      rgba(8, 7, 6, 0.66) 25%,
+      rgba(8, 7, 6, 0.32) 48%,
+      transparent 67%);
   }
   .s-ov-bottom {
     position: absolute; bottom: 0; left: 0; right: 0; height: 70%; z-index: 3;
-    background: linear-gradient(to top, rgba(30,15,2,0.65) 0%, rgba(20,10,1,0.2) 60%, transparent 100%);
+    pointer-events: none;
+    background: linear-gradient(to top,
+      rgba(7, 5, 3, 0.72) 0%,
+      rgba(13, 8, 4, 0.4) 33%,
+      rgba(13, 8, 4, 0.12) 62%,
+      transparent 100%);
   }
   .s-grain {
     position: absolute; inset: 0; z-index: 4;
-    opacity: 0.035; pointer-events: none;
+    opacity: 0.045; pointer-events: none;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     background-size: 128px;
+    mix-blend-mode: soft-light;
   }
 
   /* Frosted Glass Effect */
@@ -116,34 +131,6 @@ const styles = `
     -webkit-backdrop-filter: blur(10px);
     pointer-events: none;
   }
-
-  /* Nav */
-  .s-nav {
-    position: absolute; top: 0; left: 0; right: 0; z-index: 10;
-    display: flex; align-items: center; justify-content: space-between;
-   padding: 1rem 2.5rem;
-    animation: s-fade 0.8s ease 0.2s both;
-   
-
-  }
-  .s-nav-logo { height: 70.5px; width: auto; display: block; }
-  .s-nav-links {
-    display: flex; gap: 2.5rem; list-style: none;
-  }
-  .s-nav-links a {
-    font-size: 12px; font-weight: 400; letter-spacing: 0.12em;
-    text-transform: uppercase; text-decoration: none;
-    color: rgb(255, 255, 255); transition: color 0.25s;
-  }
-  .s-nav-links a:hover { color: #F5F2EC; }
-  .s-nav-book {
-    font-size: 13px; font-weight: 500; letter-spacing: 0.12em;
-    text-transform: uppercase; text-decoration: none;
-    color: #111111; background: #D4B483;
-    padding: 12px 28px; border-radius: 0px;
-    transition: background 0.25s;
-  }
-  .s-nav-book:hover { background: #E0C596; }
 
   /* Hero content */
   .s-content {
@@ -167,7 +154,7 @@ const styles = `
     font-size: clamp(52px, 7vw, 86px);
     font-weight: 400; letter-spacing: -0.04em; line-height: 0.95;
     color: #F5F2EC; max-width: 650px; margin-bottom: 1.5rem;
-    text-shadow: 0 2px 40px rgba(0,0,0,0.4);
+    text-shadow: 0 3px 34px rgba(0,0,0,0.62), 0 1px 2px rgba(0,0,0,0.48);
     animation: s-up 3s cubic-bezier(0.16,1,0.3,1) 0.6s both;
   }
   .s-headline em { font-style: italic; color: #D4B483; }
@@ -178,9 +165,9 @@ const styles = `
   }
   .s-sub {
     font-size: 15px; font-weight: 400; line-height: 1.75;
-    color: rgba(210,200,185,0.88); max-width: 440px;
+    color: rgba(245,242,236,0.84); max-width: 440px;
     margin-bottom: 2rem;
-    text-shadow: 0 1px 16px rgba(0,0,0,0.55);
+    text-shadow: 0 2px 14px rgba(0,0,0,0.78);
     animation: s-up 0.9s cubic-bezier(0.16,1,0.3,1) 0.8s both;
   }
   .s-cta-group {
@@ -199,11 +186,12 @@ const styles = `
   .s-cta-secondary {
     font-size: 13px; font-weight: 500; letter-spacing: 0.12em;
     text-transform: uppercase; text-decoration: none;
-    color: #F5F2EC; background: transparent;
+    color: #F5F2EC; background: rgba(7,5,3,0.12);
     padding: 16px 36px; border-radius: 0px;
     border: 1px solid rgba(255,255,255,0.15);
     transition: border-color 0.25s, background 0.25s, transform 0.2s;
     display: inline-block;
+    text-shadow: 0 1px 10px rgba(0,0,0,0.55);
   }
   .s-cta-secondary:hover {
     border-color: rgba(255,255,255,0.4);
@@ -224,7 +212,8 @@ const styles = `
   .s-icon-emoji { font-size: 1rem; opacity: 0.65; }
   .s-icon-label {
     font-size: 12px; font-weight: 400; letter-spacing: 0.1em;
-    text-transform: uppercase; color: #B6B6B6;
+    text-transform: uppercase; color: rgba(245,242,236,0.75);
+    text-shadow: 0 1px 10px rgba(0,0,0,0.6);
   }
 
   /* Marquee */
@@ -285,7 +274,7 @@ export default function SamaryaHeroMock() {
 
 
   const Videoclip = () => {
-    const videos = [vdbg1, scene3, scene2new];
+    const videos = [ scene3, scene2new ,vdbg1];
   
     const [active, setActive] = useState(0);
   
@@ -388,24 +377,18 @@ export default function SamaryaHeroMock() {
         </div>
 
         {/* Overlay layers */}
-        {/* <div className="s-ov-base" /> */}
-        {/* <div className="s-ov-golden" /> */}
+         <div className="s-ov-base" />
+        {/* <div className="s-ov-golden" />  */}
         <div className="s-ov-left" />
         {/* <div className="s-ov-bottom" /> */}
         {/* <div className="s-grain" /> */}
 
-        {/* Nav */}
-        <nav className="s-nav ">
-          <img className="s-nav-logo" src={content.logo} alt="Samarya Resort" />
-          <ul className="s-nav-links">
-            {content.navLinks.map((link) => (
-              <li key={link}><a href="#">{link}</a></li>
-            ))}
-          </ul>
-          <a href={content.whatsapp} className="s-nav-book" target="_blank" rel="noreferrer">
-            Book your stay
-          </a>
-        </nav>
+        <SamaryaHeader
+          logo={content.logo}
+          navLinks={content.navLinks}
+          bookingUrl={content.whatsapp}
+          primaryCta={content.ctaPrimary}
+        />
 
         {/* Hero content */}
         <div className="s-content" style={{ fontFamily: theme.fontUI }}>

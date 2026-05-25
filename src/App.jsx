@@ -1,28 +1,23 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
 import './App.css'
 
 import {Routes, Route} from 'react-router-dom'
-import Home from './pages/Home'
-import Auth from './pages/Auth'
 import Checkout from './pages/Chekout'
-import Navbar from './components/Navbar'
 import SamaryaHeroMock from './SamaryaHeroMock'
+import SamaryaRooms from './SamaryaRooms'
 
 function App() {
  
 
   return (
   <div className='app'>
-       {/* <Navbar />
+       {/* <Navbar /> */}
     <Routes>
-            <Route path="/" element={<Home/>} />
-            <Route path="/auth" element={<Auth/>} />
+            <Route path="/" element={<SamaryaHeroMock/>} />
+            <Route path="/rooms" element={<SamaryaRooms/>} />
             <Route path="/checkout" element={<Checkout />} />
-    </Routes> */}
-<SamaryaHeroMock/>
+    </Routes>
+{/* <SamaryaHeroMock/>
+<SamaryaRooms/> */}
 
 
   </div>
