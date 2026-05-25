@@ -1,6 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-import SamaryaHeader from './components/SamaryaHeader';
-import { content } from "./SamaryaHeroMock";
 
 // ─── DESIGN TOKENS ─────────────────────────────────────────────────
 const T = {
@@ -12,7 +10,7 @@ const T = {
   cream:   "#F5F0E8",
   cream2:  "#EAE3D6",
   border:  "rgba(44,36,22,0.1)",
-  fd:      "'Cormorant Garamond', serif",
+  fd:      "'pangaialight', 'Cormorant Garamond', serif",
   fu:      "'Inter', sans-serif",
 };
 
@@ -524,12 +522,7 @@ export default function SamaryaRooms() {
     <>
       <style>{css}</style>
 
-       <SamaryaHeader
-                logo={content.logo}
-                navLinks={content.navLinks}
-                bookingUrl={content.whatsapp}
-                primaryCta={content.ctaPrimary}
-              />
+    
 
       {/* Hero */}
       <RoomsHero />

@@ -1,0 +1,64 @@
+
+.balance-wrapper{
+background:#F5F2EC;
+padding:120px 5vw;
+font-family:'Inter', sans-serif;
+}
+
+.top-grid{
+display:grid;
+grid-template-columns:1fr 1.5fr;
+gap:32px;
+margin-bottom:32px;
+}
+
+.bottom-grid{
+display:grid;
+grid-template-columns:1.2fr 1fr;
+gap:32px;
+margin-bottom:32px;
+}
+
+.experience-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:24px;
+}
+
+.hero-image img,
+.pool-image,
+.experience-card img{
+
+width:100%;
+height:100%;
+object-fit:cover;
+
+border-radius:28px;
+}
+
+.balance-wrapper h2{
+font-family: 'pangaialight', 'Cormorant Garamond', serif;
+font-size:68px;
+font-weight:400;
+line-height:.95;
+}
+
+.balance-wrapper h2 span{
+color:#C8A46B;
+font-style:italic;
+}
+
+.balance-wrapper .eyebrow{
+
+font-size:13px;
+
+letter-spacing:.22em;
+
+color:#B58B56;
+}
+
+.amenities{
+display:flex;
+gap:24px;
+margin-top:40px;
+}

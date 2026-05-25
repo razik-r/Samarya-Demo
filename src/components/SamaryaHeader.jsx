@@ -2,12 +2,14 @@ import { Link } from "react-router-dom";
 
 const headerStyles = `
   .s-nav {
-    position: absolute; top: 0; left: 0; right: 0; z-index: 10;
+    position: fixed; top: 0; left: 0; right: 0; z-index: 999;
     display: flex; align-items: center; justify-content: space-between;
     padding: 1rem 2.5rem;
+    font-family: 'Inter', sans-serif;
+  
     animation: s-fade 0.8s ease 0.2s both;
   }
-  .s-nav-logo { height: 70.5px; width: auto; display: block; }
+  .s-nav-logo { height: 50.5px; width: auto; display: block; }
   .s-nav-links {
     display: flex; gap: 2.5rem; list-style: none;
   }
@@ -15,7 +17,7 @@ const headerStyles = `
     font-size: 12px; font-weight: 400; letter-spacing: 0.12em;
     text-transform: uppercase; text-decoration: none;
     color: rgb(255, 255, 255); transition: color 0.25s;
-    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.68);
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
   }
   .s-nav-links a:hover { color: #F5F2EC; }
   .s-nav-book {
@@ -32,6 +34,18 @@ const headerStyles = `
   }
 
   @keyframes s-fade { from { opacity: 0; } to { opacity: 1; } }
+
+  @media (max-width: 760px) {
+    .s-nav {
+      padding: 0.8rem 1.25rem;
+    }
+    .s-nav-links {
+      display: none;
+    }
+    .s-nav-book {
+      padding: 10px 16px;
+    }
+  }
 `;
 
 const routeByLink = {
@@ -40,11 +54,17 @@ const routeByLink = {
 };
 
 export default function SamaryaHeader({ logo, navLinks, bookingUrl, primaryCta }) {
+  const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+};
   return (
     <>
       <style>{headerStyles}</style>
       <nav className="s-nav">
-        <Link to="/" aria-label="Samarya home">
+        <Link to="/"    onClick={scrollToTop} aria-label="Samarya home">
           <img className="s-nav-logo" src={logo} alt="Samarya Resort" />
         </Link>
         <ul className="s-nav-links">

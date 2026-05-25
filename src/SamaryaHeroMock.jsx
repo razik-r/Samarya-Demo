@@ -2,13 +2,11 @@ import { useEffect, useState } from "react";
 import {useRef} from "react";
 
 
-import vdbg from './assets/vdbg.mp4';
-import scene1 from './assets/scene1.mp4';
-import scene2 from './assets/scene2.mp4';
 import scene3 from './assets/scene3.mp4';
 import scene2new from './assets/scene2new.mp4';
 import vdbg1 from './assets/vdbg1.mp4'
-import SamaryaHeader from './components/SamaryaHeader';
+import SamaryaExperiences from "./SamaryExperiences";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 
 // ─── DESIGN TOKENS ────────────────────────────────────────────────
 const theme = {
@@ -18,11 +16,13 @@ const theme = {
   white:       "#F5F2EC",
   muted:       "#B6B6B6",
   border:      "rgba(255,255,255,0.15)",
-  fontDisplay: "'Cormorant Garamond', serif",
+  fontDisplay: "'pangaialight', 'Cormorant Garamond', serif",
   fontUI:      "'Inter', sans-serif",
 };
 
 // ─── CONTENT — edit freely ─────────────────────────────────────────
+// Shared by the rooms route until site-wide content is centralized.
+// eslint-disable-next-line react-refresh/only-export-components
 export const content = {
   // eyebrow:     "Chikkamagaluru • India",
   brandLabel:  "Samarya",
@@ -60,10 +60,35 @@ const styles = `
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   .s-hero {
-    position: relative;
+    position: sticky; top: 0;
     width: 100%; height: 100vh; min-height: 620px;
     overflow: hidden;
     background: #0a0a0a;
+  }
+
+  .s-hero-track {
+    position: relative;
+    height: 185vh;
+    background: #0a0a0a;
+  }
+  .s-video-parallax {
+    position: absolute;
+    inset: -30vh 0 0;
+    z-index: 0;
+  }
+  .s-next-scene {
+    position: relative;
+    z-index: 12;
+    margin-top: -85vh;
+    background: #F5F2EC;
+  }
+  .s-next-scene::before {
+    content: "";
+    position: absolute;
+    top: -34vh; left: 0; right: 0;
+    height: 34vh;
+    pointer-events: none;
+    background: transparent 
   }
 
   /* Video */
@@ -151,8 +176,13 @@ const styles = `
     animation: s-up 0.8s cubic-bezier(0.16,1,0.3,1) 0.5s both;
   }
   .s-headline {
-    font-size: clamp(52px, 7vw, 86px);
-    font-weight: 400; letter-spacing: -0.04em; line-height: 0.95;
+   
+
+    font-size: clamp(52px, 7vw, 72px);
+    line-height: .95;
+    letter-spacing: -2px;
+    font-weight: 400;
+
     color: #F5F2EC; max-width: 650px; margin-bottom: 1.5rem;
     text-shadow: 0 3px 34px rgba(0,0,0,0.62), 0 1px 2px rgba(0,0,0,0.48);
     animation: s-up 3s cubic-bezier(0.16,1,0.3,1) 0.6s both;
@@ -164,7 +194,7 @@ const styles = `
     animation: s-fade 0.8s ease 0.85s both;
   }
   .s-sub {
-    font-size: 15px; font-weight: 400; line-height: 1.75;
+    font-size: 18px; font-weight: 400; line-height: 1.75;
     color: rgba(245,242,236,0.84); max-width: 440px;
     margin-bottom: 2rem;
     text-shadow: 0 2px 14px rgba(0,0,0,0.78);
@@ -178,7 +208,7 @@ const styles = `
     font-size: 13px; font-weight: 500; letter-spacing: 0.12em;
     text-transform: uppercase; text-decoration: none;
     color: #111111; background: #D4B483;
-    padding: 16px 36px; border-radius: 0px;
+    padding: 16px 36px; border-radius: 3px;
     transition: background 0.25s, transform 0.2s;
     display: inline-block;
   }
@@ -187,7 +217,7 @@ const styles = `
     font-size: 13px; font-weight: 500; letter-spacing: 0.12em;
     text-transform: uppercase; text-decoration: none;
     color: #F5F2EC; background: rgba(7,5,3,0.12);
-    padding: 16px 36px; border-radius: 0px;
+    padding: 16px 36px; border-radius: 3px;
     border: 1px solid rgba(255,255,255,0.15);
     transition: border-color 0.25s, background 0.25s, transform 0.2s;
     display: inline-block;
@@ -266,87 +296,76 @@ const styles = `
 
 
 // ─── COMPONENT ─────────────────────────────────────────────────────
-export default function SamaryaHeroMock() {
-  const marqueeDouble = [...content.marqueeItems, ...content.marqueeItems];
+const heroVideos = [scene3, scene2new, vdbg1];
 
- 
+function VideoClip() {
+  const [active, setActive] = useState(0);
+  const videoRefs = useRef([]);
 
-
-
-  const Videoclip = () => {
-    const videos = [ scene3, scene2new ,vdbg1];
-  
-    const [active, setActive] = useState(0);
-  
-    const videoRefs = useRef([]);
-  
-    const handleEnded = () => {
-      setActive((prev) => (prev + 1) % videos.length);
-    };
-  
-    useEffect(() => {
-      const currentVideo = videoRefs.current[active];
-  
-      if (currentVideo) {
-        currentVideo.currentTime = 0;
-  
-        currentVideo
-          .play()
-          .catch((err) => console.log("Playback issue:", err));
-      }
-    }, [active]);
-  
-    return (
-      <div
-        style={{
-          position: "relative",
-          width: "100%",
-          height: "100%",
-          overflow: "hidden"
-        }}
-      >
-        {videos.map((video, index) => (
-          <video
-            key={index}
-            ref={(el) => (videoRefs.current[index] = el)}
-            src={video}
-            muted
-            playsInline
-            preload="auto"
-            onEnded={active === index ? handleEnded : undefined}
-            style={{
-              position: "absolute",
-              inset: 0,
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-  
-              opacity: active === index ? 1 : 0,
-  
-              transition:
-                "opacity 2.5s cubic-bezier(.4,0,.2,1)",
-  
-              pointerEvents: "none"
-            }}
-          />
-        ))}
-      </div>
-    );
+  const handleEnded = () => {
+    setActive((prev) => (prev + 1) % heroVideos.length);
   };
-  
- 
-  
 
-  const Videoclip1 =  ()=>{
-    let url = "https://res.cloudinary.com/dywtcb29v/video/upload/Firefly_slight_background_movement_soft_natural_lighting_gentle_motion_smooth_and_realistic_cwiaxx.mp4"
-    const [index, setIndex] = useState(0);
-    const videos = [vdbg1, scene1 , scene2]
-    return (
-<video key={videos[index] || url } autoPlay  muted  playsInline style={{ height: "inherit", width: "100%" }} onEnded={() => {setIndex((idx) => idx + 1);}}>
-          <source src={videos[index] ||url} />
-        </video>
-    )
-  }
+  useEffect(() => {
+    const currentVideo = videoRefs.current[active];
+
+    if (currentVideo) {
+      currentVideo.currentTime = 0;
+      currentVideo.play().catch((err) => console.log("Playback issue:", err));
+    }
+  }, [active]);
+
+  return (
+    <div style={{ position: "relative", width: "100%", height: "100%", overflow: "hidden" }}>
+      {heroVideos.map((video, index) => (
+        <video
+          key={video}
+          ref={(el) => (videoRefs.current[index] = el)}
+          src={video}
+          muted
+          playsInline
+          preload="auto"
+          onEnded={active === index ? handleEnded : undefined}
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            opacity: active === index ? 1 : 0,
+            transition: "opacity 2.5s cubic-bezier(.4,0,.2,1)",
+            pointerEvents: "none"
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
+export default function SamaryaHeroMock() {
+  const transitionRef = useRef(null);
+  const reduceMotion = useReducedMotion();
+  const { scrollYProgress } = useScroll({
+    target: transitionRef,
+    offset: ["start start", "end end"],
+  });
+  const videoY = useTransform(
+    scrollYProgress,
+    [0, 1],
+    reduceMotion ? ["0vh", "0vh"] : ["0vh", "30vh"],
+  );
+  const contentY = useTransform(
+    scrollYProgress,
+    [0, 0.7],
+    reduceMotion ? ["0px", "0px"] : ["0px", "-80px"],
+  );
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.58], [1, reduceMotion ? 1 : 0]);
+  const nextY = useTransform(
+    scrollYProgress,
+    [0.18, 0.9],
+    reduceMotion ? ["0px", "0px"] : ["100px", "0px"],
+  );
+ 
 
 
 
@@ -354,9 +373,12 @@ export default function SamaryaHeroMock() {
     <>
       <style>{styles}</style>
 
+      <div className="s-story">
+      <div ref={transitionRef} className="s-hero-track">
       <section className="s-hero" style={{ fontFamily: theme.fontUI }}>
 
         {/* Background */}
+        <motion.div className="s-video-parallax" style={{ y: videoY }}>
         <div className="s-video-wrap">
           <div
             className="s-fallback"
@@ -368,30 +390,26 @@ export default function SamaryaHeroMock() {
 
 
 
-          <Videoclip />
+          <VideoClip />
 
 
 
        
 
         </div>
+        </motion.div>
 
         {/* Overlay layers */}
          <div className="s-ov-base" />
         {/* <div className="s-ov-golden" />  */}
         <div className="s-ov-left" />
         {/* <div className="s-ov-bottom" /> */}
-        {/* <div className="s-grain" /> */}
+        <div className="s-grain" />
 
-        <SamaryaHeader
-          logo={content.logo}
-          navLinks={content.navLinks}
-          bookingUrl={content.whatsapp}
-          primaryCta={content.ctaPrimary}
-        />
+       
 
         {/* Hero content */}
-        <div className="s-content" style={{ fontFamily: theme.fontUI }}>
+        <motion.div className="s-content" style={{ fontFamily: theme.fontUI, y: contentY, opacity: contentOpacity }}>
           <p className="s-eyebrow">{content.eyebrow}</p>
           {/* <p className="s-brand-label">{content.brandLabel}</p> */}
           <h1 className="s-headline" style={{ fontFamily: theme.fontDisplay }}>
@@ -408,17 +426,17 @@ export default function SamaryaHeroMock() {
               {content.ctaSecondary}
             </a>
           </div>
-        </div>
+        </motion.div>
 
         {/* Icon strip */}
-        <div className="s-icons">
+        <motion.div className="s-icons" style={{ y: contentY, opacity: contentOpacity }}>
           {content.icons.map((icon, i) => (
             <div key={i} className="s-icon-item">
               <span className="s-icon-emoji">{icon.emoji}</span>
               <span className="s-icon-label">{icon.label}</span>
             </div>
           ))}
-        </div>
+        </motion.div>
 
         {/* Marquee */}
         {/* <div className="s-marquee">
@@ -432,10 +450,12 @@ export default function SamaryaHeroMock() {
         </div> */}
 
       </section>
+      </div>
 
-      <section>
-
-      </section>
+      <motion.div className="s-next-scene" style={{ y: nextY }}>
+       <SamaryaExperiences />
+      </motion.div>
+      </div>
     </>
   );
 
