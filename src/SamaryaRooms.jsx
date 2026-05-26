@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from "react";
+import SamryaFooter from "./SamaryaFooter.jsx";
 
 // ─── DESIGN TOKENS ─────────────────────────────────────────────────
-const T = {
+export const T = {
   gold:    "#D4B483",
   goldhov: "#C8A06E",
   dark:    "#1A1208",
@@ -530,7 +531,7 @@ export default function SamaryaRooms() {
       {/* Bento section */}
       <section style={{ background:T.cream, padding:"clamp(2rem,4vw,3rem) 0 clamp(3rem,5vw,4rem)",
         fontFamily:T.fu }}>
-        <div style={{ maxWidth:1320, margin:"0 auto", padding:`0 ${pad}` }}>
+        <div style={{ maxWidth:1320, maxHeight: "100%", margin:"0 auto", padding:`0 ${pad}` }}>
 
           <div className="bento">
             <div className="b-c1 bento-card" style={{ "--room-delay": "0.08s" }}><RoomCard room={ROOMS[0]} large/></div>
@@ -559,9 +560,13 @@ export default function SamaryaRooms() {
               View all rooms →
             </a>
           </div>
-
         </div>
+
+
+        
+        
       </section>
+        <SamryaFooter />
     </>
   );
 }

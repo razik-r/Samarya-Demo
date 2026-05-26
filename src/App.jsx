@@ -21,7 +21,7 @@ function App() {
                        logo={content.logo}
                        navLinks={content.navLinks}
                        bookingUrl={content.whatsapp}
-                       primaryCta={content.ctaPrimary}
+                       ctaHeader={content.ctaHeader}
                      />
     <Routes>
             <Route path="/" element={<SamaryaHeroMock/>} />

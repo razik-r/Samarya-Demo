@@ -7,6 +7,7 @@ import scene2new from './assets/scene2new.mp4';
 import vdbg1 from './assets/vdbg1.mp4'
 import SamaryaExperiences from "./SamaryExperiences";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import SamaryaAboutFooter from "./SamaryaAboutFooter";
 
 // ─── DESIGN TOKENS ────────────────────────────────────────────────
 const theme = {
@@ -29,7 +30,8 @@ export const content = {
   headline:    ["Where Coffee Blossoms", "Meet the "],
   headlineEm:  "Horizon",
   sub:         "A boutique workation sanctuary designed for deep work & slow living among the hills of Chikkamagaluru.",
-  ctaPrimary:  "Book your stay",
+  ctaHeader: "Book your stay",
+  ctaPrimary:  "Find your stay",
   ctaSecondary:"Explore experiences",
   whatsapp:    "https://wa.me/919845980024",
   logo:        "https://samarya.online/wp-content/uploads/2023/12/Samarya-Official-White-Website-1-scaled.png",
@@ -37,9 +39,9 @@ export const content = {
   // fallback:    "https://samarya.online/wp-content/uploads/2026/02/IMG_9604-Edit.jpg",
   navLinks:    ["Home", "Rooms", "Experiences", "About", "Contact"],
   icons: [
-    { emoji: "∞", label: "Infinity Pool" },
-    { emoji: "☕", label: "Estate Coffee" },
-    { emoji: "⌂", label: "Workation Ready" },
+    { emoji: "", label: "Infinity Pool" },
+    { emoji: "", label: "Estate Coffee" },
+    { emoji: "", label: "Workation Ready" },
   ],
   marqueeItems: [
     "Coffee Plantation Trails",
@@ -161,6 +163,7 @@ const styles = `
   .s-content {
     position: absolute; bottom: 8.5rem; left: 0; right: 0; z-index: 10;
     max-width: 1400px; margin: 0 auto; padding: 0 3rem;
+    
   }
   .s-eyebrow {
     font-size: 14px; font-weight: 500; letter-spacing: 0.3em;
@@ -180,9 +183,9 @@ const styles = `
 
     font-size: clamp(52px, 7vw, 72px);
     line-height: .95;
-    letter-spacing: -2px;
-    font-weight: 400;
-
+    letter-spacing: 0.5px;
+    font-weight: semi-bold;
+padding-left:clamp(40px,7vw,50px);
     color: #F5F2EC; max-width: 650px; margin-bottom: 1.5rem;
     text-shadow: 0 3px 34px rgba(0,0,0,0.62), 0 1px 2px rgba(0,0,0,0.48);
     animation: s-up 3s cubic-bezier(0.16,1,0.3,1) 0.6s both;
@@ -192,9 +195,12 @@ const styles = `
     width: 36px; height: 0.5px; background: #D4B483;
     margin-bottom: 1.25rem;
     animation: s-fade 0.8s ease 0.85s both;
+    margin-left:clamp(40px,7vw,50px);
   }
   .s-sub {
-    font-size: 18px; font-weight: 400; line-height: 1.75;
+
+    font-size:clamp(14px,1.6vw,15px); font-weight: 400; line-height: 1.75;
+    padding-left:clamp(40px,7vw,50px);
     color: rgba(245,242,236,0.84); max-width: 440px;
     margin-bottom: 2rem;
     text-shadow: 0 2px 14px rgba(0,0,0,0.78);
@@ -203,6 +209,7 @@ const styles = `
   .s-cta-group {
     display: flex; align-items: center; gap: 1rem;
     animation: s-up 0.9s cubic-bezier(0.16,1,0.3,1) 0.95s both;
+    padding-left:clamp(40px,7vw,50px);
   }
   .s-cta-primary {
     font-size: 13px; font-weight: 500; letter-spacing: 0.12em;
@@ -211,17 +218,21 @@ const styles = `
     padding: 16px 36px; border-radius: 3px;
     transition: background 0.25s, transform 0.2s;
     display: inline-block;
+    text-wrap: nowrap;
   }
   .s-cta-primary:hover { background: #E0C596; transform: translateY(-1px); }
   .s-cta-secondary {
     font-size: 13px; font-weight: 500; letter-spacing: 0.12em;
     text-transform: uppercase; text-decoration: none;
-    color: #F5F2EC; background: rgba(7,5,3,0.12);
+    backdrop-filter: blur(16px);
+    color: #F5F2EC; background-image: linear-gradient(32deg, #ffffff14, #fff0 21% 65%, #fff3), linear-gradient(#ffffff14, #ffffff14), linear-gradient(#0000000a, #0000000a);
     padding: 16px 36px; border-radius: 3px;
     border: 1px solid rgba(255,255,255,0.15);
+   
     transition: border-color 0.25s, background 0.25s, transform 0.2s;
     display: inline-block;
     text-shadow: 0 1px 10px rgba(0,0,0,0.55);
+      text-wrap: nowrap;
   }
   .s-cta-secondary:hover {
     border-color: rgba(255,255,255,0.4);
@@ -234,6 +245,8 @@ const styles = `
     position: absolute; bottom: 3.25rem; left: 0; right: 0; z-index: 10;
     display: flex; align-items: center; justify-content: center;
     animation: s-fade 0.9s ease 1.15s both;
+    opacity: 0.9;
+    font-family: pangaialight, 'Cormorant Garamond', serif;
   }
   .s-icon-item {
     display: flex; align-items: center; gap: 0.55rem; padding: 0 2rem;
@@ -242,7 +255,7 @@ const styles = `
   .s-icon-emoji { font-size: 1rem; opacity: 0.65; }
   .s-icon-label {
     font-size: 12px; font-weight: 400; letter-spacing: 0.1em;
-    text-transform: uppercase; color: rgba(245,242,236,0.75);
+   color: rgba(245,242,236,0.75);
     text-shadow: 0 1px 10px rgba(0,0,0,0.6);
   }
 
@@ -342,6 +355,7 @@ function VideoClip() {
   );
 }
 
+import { Link } from "react-router-dom";
 export default function SamaryaHeroMock() {
   const transitionRef = useRef(null);
   const reduceMotion = useReducedMotion();
@@ -419,9 +433,9 @@ export default function SamaryaHeroMock() {
           <div className="s-divider" />
           <p className="s-sub">{content.sub}</p>
           <div className="s-cta-group">
-            <a href={content.whatsapp} className="s-cta-primary" target="_blank" rel="noreferrer">
-              {content.ctaPrimary}
-            </a>
+         <Link to={'/rooms'} className="s-cta-primary" target="_blank" rel="noreferrer">
+  {content.ctaPrimary}
+</Link>
             <a href="#experiences" className="s-cta-secondary">
               {content.ctaSecondary}
             </a>
@@ -453,7 +467,9 @@ export default function SamaryaHeroMock() {
       </div>
 
       <motion.div className="s-next-scene" style={{ y: nextY }}>
-       <SamaryaExperiences />
+       {/* <SamaryaExperiences /> */}
+
+       <SamaryaAboutFooter/>
       </motion.div>
       </div>
     </>
