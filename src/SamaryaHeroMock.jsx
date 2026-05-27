@@ -162,7 +162,7 @@ const styles = `
   /* Hero content */
   .s-content {
     position: absolute; bottom: 8.5rem; left: 0; right: 0; z-index: 10;
-    max-width: 1400px; margin: 0 auto; padding: 0 3rem;
+    max-width: 1400px; margin: 0 auto; padding: clamp(0 1.5rem, 2vw, 0 3rem);
     
   }
   .s-eyebrow {
@@ -185,7 +185,7 @@ const styles = `
     line-height: .95;
     letter-spacing: 0.5px;
     font-weight: semi-bold;
-padding-left:clamp(40px,7vw,50px);
+padding-left:clamp(0px,7vw,50px);
     color: #F5F2EC; max-width: 650px; margin-bottom: 1.5rem;
     text-shadow: 0 3px 34px rgba(0,0,0,0.62), 0 1px 2px rgba(0,0,0,0.48);
     animation: s-up 3s cubic-bezier(0.16,1,0.3,1) 0.6s both;
@@ -195,12 +195,12 @@ padding-left:clamp(40px,7vw,50px);
     width: 36px; height: 0.5px; background: #D4B483;
     margin-bottom: 1.25rem;
     animation: s-fade 0.8s ease 0.85s both;
-    margin-left:clamp(40px,7vw,50px);
+    margin-left:clamp(0px,7vw,50px);
   }
   .s-sub {
 
     font-size:clamp(14px,1.6vw,15px); font-weight: 400; line-height: 1.75;
-    padding-left:clamp(40px,7vw,50px);
+    padding-left:clamp(0px,7vw,50px);
     color: rgba(245,242,236,0.84); max-width: 440px;
     margin-bottom: 2rem;
     text-shadow: 0 2px 14px rgba(0,0,0,0.78);
@@ -209,24 +209,25 @@ padding-left:clamp(40px,7vw,50px);
   .s-cta-group {
     display: flex; align-items: center; gap: 1rem;
     animation: s-up 0.9s cubic-bezier(0.16,1,0.3,1) 0.95s both;
-    padding-left:clamp(40px,7vw,50px);
+    padding-left:clamp(0px,7vw,50px);
   }
   .s-cta-primary {
-    font-size: 13px; font-weight: 500; letter-spacing: 0.12em;
+    font-size: clamp(8px, 2vw, 13px); font-weight: 500; letter-spacing: 0.12em;
     text-transform: uppercase; text-decoration: none;
     color: #111111; background: #D4B483;
-    padding: 16px 36px; border-radius: 3px;
+    padding: clamp(12px, 2vw, 16px) clamp(24px, 4vw, 36px);
+    border-radius: 3px;
     transition: background 0.25s, transform 0.2s;
     display: inline-block;
     text-wrap: nowrap;
   }
   .s-cta-primary:hover { background: #E0C596; transform: translateY(-1px); }
   .s-cta-secondary {
-    font-size: 13px; font-weight: 500; letter-spacing: 0.12em;
+     font-size: clamp(8px, 2vw, 13px); font-weight: 500; letter-spacing: 0.12em;
     text-transform: uppercase; text-decoration: none;
     backdrop-filter: blur(16px);
     color: #F5F2EC; background-image: linear-gradient(32deg, #ffffff14, #fff0 21% 65%, #fff3), linear-gradient(#ffffff14, #ffffff14), linear-gradient(#0000000a, #0000000a);
-    padding: 16px 36px; border-radius: 3px;
+     padding: clamp(12px, 2vw, 16px) clamp(24px, 4vw, 36px);border-radius: 3px;
     border: 1px solid rgba(255,255,255,0.15);
    
     transition: border-color 0.25s, background 0.25s, transform 0.2s;
@@ -254,9 +255,10 @@ padding-left:clamp(40px,7vw,50px);
   .s-icon-item + .s-icon-item { border-left: 1px solid rgba(255,255,255,0.15); }
   .s-icon-emoji { font-size: 1rem; opacity: 0.65; }
   .s-icon-label {
-    font-size: 12px; font-weight: 400; letter-spacing: 0.1em;
+    font-size: clamp(10px, 2vw, 12px); font-weight: 400; letter-spacing: 0.1em;
    color: rgba(245,242,236,0.75);
     text-shadow: 0 1px 10px rgba(0,0,0,0.6);
+    text-wrap: nowrap;
   }
 
   /* Marquee */
