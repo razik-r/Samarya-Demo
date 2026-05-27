@@ -312,7 +312,7 @@ padding-left:clamp(0px,7vw,50px);
 
 // ─── COMPONENT ─────────────────────────────────────────────────────
 
-const vdbg12 = "https://res.cloudinary.com/dywtcb29v/video/upload/Firefly_slight_background_movement_soft_natural_lighting_gentle_motion_smooth_and_realistic_cwiaxx.mp4"
+const vdbg12 = "https://res.cloudinary.com/dywtcb29v/video/upload/q_auto:best,f_auto,vc_auto/Firefly_slight_background_movement_soft_natural_lighting_gentle_motion_smooth_and_realistic_cwiaxx.mp4"
 const  scene32 = 'https://res.cloudinary.com/dywtcb29v/video/upload/q_auto:best,f_auto,vc_auto/v1779825131/scene3_mkittf.mp4'
 // const scene2new = 'https://res.cloudinary.com/dywtcb29v/video/upload/v1779825131/scene2new_kyjv7h.mp4'
 const heroVideos = [  vdbg12 ,scene32, scene2new];
@@ -344,6 +344,7 @@ function VideoClip() {
           muted
           playsInline
           preload="auto"
+            poster="https://res.cloudinary.com/dywtcb29v/image/upload/v1779881134/Firefly_slight_background_movement_soft_natural_lighting_gentle_motion_smooth_and_realistic_cwiaxx_poster.jpg"
           onEnded={active === index ? handleEnded : undefined}
           style={{
             position: "absolute",
