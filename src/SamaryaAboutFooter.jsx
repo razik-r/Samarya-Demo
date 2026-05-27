@@ -433,6 +433,8 @@ function BalanceSection() {
   );
 }
 
+
+import hikes  from "./assets/hikes.png";
 // ═══════════════════════════════════════════════════════════════════
 // EXPERIENCES SECTION
 // ═══════════════════════════════════════════════════════════════════
@@ -440,7 +442,7 @@ function ExperiencesSection() {
   const experiences = [
     { title: "Coffee Trails",  desc: "Walk through estates, meet the growers and taste coffee at its source.", img: "https://samarya.online/wp-content/uploads/2026/02/IMG_9986-Edit.jpg" },
     { title: "Bonfire Nights", desc: "Unwind with music, good food and conversations under starry skies.", img: "https://samarya.online/wp-content/uploads/2026/02/IMG_9996-Edit.jpg" },
-    { title: "Offbeat Hikes",  desc: "Explore hidden trails, waterfalls and breathtaking viewpoints near Hirekolale Lake.", img: "https://samarya.online/wp-content/uploads/2026/02/IMG_9716-Edit.jpg" },
+    { title: "Offbeat Hikes",  desc: "Explore hidden trails, waterfalls and breathtaking viewpoints near Hirekolale Lake.", img: hikes },
   ];
 
   return (
