@@ -5,7 +5,7 @@ import App from './App.jsx'
 import ScrollToTop from './ScrollToTop.jsx';
 
 createRoot(document.getElementById('root')).render(
-  <BrowserRouter basename="/Samarya-Demo/">
+<BrowserRouter basename={import.meta.env.BASE_URL}>
     <ScrollToTop />
     <StrictMode>
       <App />
