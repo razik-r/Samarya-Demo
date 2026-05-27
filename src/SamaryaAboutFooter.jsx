@@ -183,7 +183,7 @@ function FloatingCards({ activeIdx, isHovering = false }) {
   const floatClass = ["float-a", "float-b", "float-c"];
 
   return (
-    <div style={{ position: "absolute", width: "100%", height: "100%", minHeight: 600, top: 0, left: 0, inset: 0 }}>
+    <div style={{ position: "absolute",   width: "100%", height: "100%", minHeight: 600, top: 0, left: 0, inset: 0 }}>
       {CARDS.map((card, i) => {
         const isActive = i === activeIdx;
         const isPrev   = i === (activeIdx - 1 + CARDS.length) % CARDS.length;
@@ -194,24 +194,27 @@ function FloatingCards({ activeIdx, isHovering = false }) {
         else slotIdx = 2;
 
         const pos = FAN_POS[slotIdx];
-
+const isMobile = window.innerWidth < 560;
         return (
           <div
             key={card.id}
             className={floatClass[i]}
             style={{
               position: "absolute",
-              left: isHovering ? pos.left : "50%",
+             left: isHovering ? pos.left : isMobile ? "45%" : "50%",
               top: isHovering ? pos.top : "50%",
-              width: "clamp(200px, 35%, 280px)",
+          width: "clamp(200px, 35%, 280px)",
               zIndex: pos.zIndex,
               opacity: isHovering ? (isActive ? 1 : 0.60) : 0,
               transformOrigin: "50% 100%",
-              transform: isHovering
-                ? `translateX(-50%) rotate(${pos.rotate}deg) scale(${isActive ? 1 : 0.93})`
-                : "translateX(-50%) rotate(0deg) scale(0.7) translateY(20px)",
+            transform: isHovering
+  ? `translateX(-50%) rotate(${pos.rotate}deg) scale(${isActive ? 1 : 0.93})`
+  : window.innerWidth < 560
+    ? "translateX(-58%) rotate(0deg) scale(0.7) translateY(20px)"
+    : "translateX(-50%) rotate(0deg) scale(0.7) translateY(20px)",
               transition: "all 0.55s cubic-bezier(0.16,1,0.3,1)",
               pointerEvents: "none",
+            
             }}>
             <div style={{
               width:360,
@@ -435,13 +438,16 @@ function BalanceSection() {
 
 
 import hikes  from "./assets/hikes.png";
+import bnfire from "./assets/bnfire.png";
+import trail from "./assets/trail.png";
+import { clamp } from "framer-motion";
 // ═══════════════════════════════════════════════════════════════════
 // EXPERIENCES SECTION
 // ═══════════════════════════════════════════════════════════════════
 function ExperiencesSection() {
   const experiences = [
-    { title: "Coffee Trails",  desc: "Walk through estates, meet the growers and taste coffee at its source.", img: "https://samarya.online/wp-content/uploads/2026/02/IMG_9986-Edit.jpg" },
-    { title: "Bonfire Nights", desc: "Unwind with music, good food and conversations under starry skies.", img: "https://samarya.online/wp-content/uploads/2026/02/IMG_9996-Edit.jpg" },
+    { title: "Coffee Trails",  desc: "Walk through estates, meet the growers and taste coffee at its source.", img: trail },
+    { title: "Bonfire Nights", desc: "Unwind with music, good food and conversations under starry skies.", img: bnfire },
     { title: "Offbeat Hikes",  desc: "Explore hidden trails, waterfalls and breathtaking viewpoints near Hirekolale Lake.", img: hikes },
   ];
 
